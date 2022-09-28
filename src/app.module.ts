@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import * as Joi from 'joi';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
@@ -13,6 +14,9 @@ import { UsersModule } from './users/users.module';
           .valid('development', 'production')
           .default('development'),
         PORT: Joi.number().default(3000),
+        DATABASE_URL: Joi.string().default(
+          'postgresql://postgres:postgres@localhost:5432/postgres',
+        ),
         JWT_SECRET: Joi.string().default('s3cr3t'),
         THROTTLE_TTL: Joi.number().default(60),
         THROTTLE_LIMIT: Joi.number().default(10),
@@ -25,6 +29,16 @@ import { UsersModule } from './users/users.module';
       useFactory: (config: ConfigService) => ({
         ttl: config.get('THROTTLE_TTL'),
         limit: config.get('THROTTLE_LIMIT'),
+      }),
+    }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        type: 'postgres',
+        url: config.get('DATABASE_URL'),
+        autoLoadEntities: true,
+        synchronize: true,
       }),
     }),
     AuthModule,
