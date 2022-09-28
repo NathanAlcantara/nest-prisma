@@ -9,11 +9,14 @@ declare const module: any;
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.use(helmet());
+  // Starts listening for shutdown hooks
+  app.enableShutdownHooks();
 
   app.setGlobalPrefix('api', {
     exclude: [{ path: 'health', method: RequestMethod.GET }],
   });
+
+  app.use(helmet());
 
   const configService = app.get(ConfigService);
   const port = configService.get('PORT');
