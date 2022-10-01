@@ -3,16 +3,16 @@ import {
   HealthCheck,
   HealthCheckService,
   HttpHealthIndicator,
-  TypeOrmHealthIndicator,
 } from '@nestjs/terminus';
 import { Public } from 'src/auth/decorators/is-public.decorator';
+import { PrismaHealthIndicator } from './prisma-health.service';
 
 @Controller('health')
 export class HealthController {
   constructor(
     private health: HealthCheckService,
     private http: HttpHealthIndicator,
-    private db: TypeOrmHealthIndicator,
+    private db: PrismaHealthIndicator,
   ) {}
 
   @Get()
@@ -20,7 +20,7 @@ export class HealthController {
   @HealthCheck()
   check() {
     return this.health.check([
-      () => this.db.pingCheck('database'),
+      () => this.db.isHealthy('database'),
       () => this.http.pingCheck('nestjs-docs', 'https://docs.nestjs.com'),
     ]);
   }

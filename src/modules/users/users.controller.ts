@@ -1,6 +1,6 @@
 import { Controller, Get, Request } from '@nestjs/common';
+import { Role } from '@prisma/client';
 import { Roles } from 'src/auth/decorators/roles.decorator';
-import { Role } from 'src/enums/role.enum';
 
 @Controller('users')
 export class UsersController {
@@ -10,7 +10,7 @@ export class UsersController {
   }
 
   @Get('role')
-  @Roles(Role.Admin)
+  @Roles(Role.ADMIN)
   getRole(@Request() req) {
     return req.user.role;
   }
