@@ -2,9 +2,11 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ThrottlerModule } from '@nestjs/throttler';
 import * as Joi from 'joi';
+import { PrismaModule } from 'nestjs-prisma';
 import { AuthModule } from './auth/auth.module';
+import { PrismaConfigService } from './config/prisma/prisma-config.service';
 import { HealthModule } from './health/health.module';
-import { UsersModule } from './modules/users/users.module';
+import { ModulesModule } from './modules/modules.module';
 
 @Module({
   imports: [
@@ -31,9 +33,13 @@ import { UsersModule } from './modules/users/users.module';
         limit: config.get('THROTTLE_LIMIT'),
       }),
     }),
+    PrismaModule.forRootAsync({
+      isGlobal: true,
+      useClass: PrismaConfigService,
+    }),
     AuthModule,
     HealthModule,
-    UsersModule,
+    ModulesModule,
   ],
 })
 export class AppModule {}
