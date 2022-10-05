@@ -10,7 +10,8 @@
       "runtimeArgs": ["start:dev"],
       "runtimeExecutable": "yarn",
       "skipFiles": ["<node_internals>/**"],
-      "type": "node"
+      "outputCapture": "std",
+      "type": "node",
     }
   ]
 }

@@ -1,5 +1,5 @@
 import { Prisma } from '@prisma/client';
-import bcrypt from 'bcrypt';
+import * as bcrypt from 'bcrypt';
 
 export function hashUserPassword(): Prisma.Middleware {
   return async (params, next) => {
