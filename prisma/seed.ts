@@ -5,12 +5,9 @@ const prisma = new PrismaClient();
 
 async function main() {
   const user: Prisma.UserCreateInput = {
-    username: 'nathan',
     email: 'nathan@admin.com',
-    password: 'nathan',
+    password: 'admin',
     roles: [Role.ADMIN],
-    createdBy: 'nathan',
-    updatedBy: 'nathan',
   };
 
   const salt = await bcrypt.genSalt();
@@ -19,7 +16,7 @@ async function main() {
   user.password = hash;
 
   const nathan = await prisma.user.upsert({
-    where: { username: user.username },
+    where: { email: user.email },
     update: user,
     create: user,
   });

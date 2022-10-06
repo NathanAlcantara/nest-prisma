@@ -7,6 +7,7 @@ import { validationSchema } from './config/environment';
 import { PrismaConfigService } from './config/prisma/prisma-config.service';
 import { HealthModule } from './health/health.module';
 import { ModulesModule } from './modules/modules.module';
+import { SharedModule } from './shared/shared.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { ModulesModule } from './modules/modules.module';
     }),
     AuthModule,
     HealthModule,
+    SharedModule,
     ModulesModule,
   ],
 })

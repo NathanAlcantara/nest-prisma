@@ -3,13 +3,15 @@ import * as bcrypt from 'bcrypt';
 
 export function hashUserPassword(): Prisma.Middleware {
   return async (params, next) => {
-    if (params.action == 'create' && params.model == 'User') {
+    if (params.action == 'update' && params.model == 'User') {
       const user = params.args.data;
 
-      const salt = await bcrypt.genSalt();
-      const hash = await bcrypt.hash(user.password, salt);
+      if (user.password) {
+        const salt = await bcrypt.genSalt();
+        const hash = await bcrypt.hash(user.password, salt);
 
-      user.password = hash;
+        user.password = hash;
+      }
 
       params.args.data = user;
     }

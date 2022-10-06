@@ -8,16 +8,13 @@ datasource db {
 }
 
 model User {
-  id       String @id @default(uuid())
-  email    String @unique
-  username String @unique
-  password String
-  roles    Role[] @default([USER])
+  id       String  @id @default(uuid())
+  email    String  @unique
+  password String?
+  roles    Role[]  @default([USER])
 
   updatedAt DateTime @updatedAt
-  updatedBy String
   createdAt DateTime @default(now())
-  createdBy String
 }
 
 enum Role {
