@@ -9,6 +9,7 @@ export class NotifyController {
 
   @Get()
   sendMail(): any {
-    return this.notifyService.example();
+    this.notifyService.welcome();
+    this.notifyService.resetPassword();
   }
 }

@@ -23,10 +23,18 @@ import { NotifyService } from './notify.service';
           from: '"Contact No-Reply" <contact@no-reply.com>',
         },
         template: {
-          dir: process.cwd() + '/templates',
+          dir: process.cwd() + '/templates/pages',
           adapter: new HandlebarsAdapter(),
           options: {
             strict: true,
+          },
+        },
+        options: {
+          partials: {
+            dir: process.cwd() + '/templates/partials',
+            options: {
+              strict: true,
+            },
           },
         },
       }),

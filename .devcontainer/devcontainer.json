@@ -21,7 +21,9 @@
 				"streetsidesoftware.code-spell-checker",
 				"eamodio.gitlens",
 				"esbenp.prettier-vscode",
-				"Prisma.prisma"
+				"Prisma.prisma",
+				"ItsMeAdarsh.vsc-handlebars-ext",
+				"Greenbyte.handlebars-preview"
 			]
 		}
 	},
