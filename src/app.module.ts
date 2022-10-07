@@ -7,6 +7,7 @@ import { validationSchema } from './config/environment';
 import { PrismaConfigService } from './config/prisma/prisma-config.service';
 import { HealthModule } from './health/health.module';
 import { ModulesModule } from './modules/modules.module';
+import { NotifyModule } from './notify/notify.module';
 import { SharedModule } from './shared/shared.module';
 
 @Module({
@@ -21,17 +22,18 @@ import { SharedModule } from './shared/shared.module';
     ThrottlerModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (config: ConfigService) => ({
-        ttl: config.get('THROTTLE_TTL'),
-        limit: config.get('THROTTLE_LIMIT'),
+      useFactory: (configService: ConfigService) => ({
+        ttl: configService.get('THROTTLE_TTL'),
+        limit: configService.get('THROTTLE_LIMIT'),
       }),
     }),
     PrismaModule.forRootAsync({
       isGlobal: true,
       useClass: PrismaConfigService,
     }),
-    AuthModule,
     HealthModule,
+    AuthModule,
+    NotifyModule,
     SharedModule,
     ModulesModule,
   ],

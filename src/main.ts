@@ -11,8 +11,7 @@ declare const module: any;
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
-  // Starts listening for shutdown hooks
-  app.enableShutdownHooks();
+  app.enableCors();
 
   app.useGlobalPipes(
     new ValidationPipe({

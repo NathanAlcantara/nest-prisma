@@ -12,6 +12,9 @@ interface EnvironmentVariables {
   JWT_SECRET: string;
   THROTTLE_TTL: number;
   THROTTLE_LIMIT: number;
+  SMTP_HOST: string;
+  SMTP_USER: string;
+  SMTP_PASS: string;
 }
 
 export const validationSchema = Joi.object<EnvironmentVariables>({
@@ -27,4 +30,9 @@ export const validationSchema = Joi.object<EnvironmentVariables>({
     .when('NODE_ENV', { is: Environment.PRODUCTION, then: Joi.required() }),
   THROTTLE_TTL: Joi.number().default(60),
   THROTTLE_LIMIT: Joi.number().default(10),
+  SMTP_HOST: Joi.string()
+    .default('smtp.ethereal.email')
+    .when('NODE_ENV', { is: Environment.PRODUCTION, then: Joi.required() }),
+  SMTP_USER: Joi.string().required(),
+  SMTP_PASS: Joi.string().required(),
 });
