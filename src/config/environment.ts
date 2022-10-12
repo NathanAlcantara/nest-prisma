@@ -10,6 +10,7 @@ interface EnvironmentVariables {
   PORT: number;
   DATABASE_URL: string;
   JWT_SECRET: string;
+  JWT_EXP: number;
   THROTTLE_TTL: number;
   THROTTLE_LIMIT: number;
   SMTP_HOST: string;
@@ -28,6 +29,7 @@ export const validationSchema = Joi.object<EnvironmentVariables>({
   JWT_SECRET: Joi.string()
     .default('s3cr3t')
     .when('NODE_ENV', { is: Environment.PRODUCTION, then: Joi.required() }),
+  JWT_EXP: Joi.number().default(60),
   THROTTLE_TTL: Joi.number().default(60),
   THROTTLE_LIMIT: Joi.number().default(10),
   SMTP_HOST: Joi.string()

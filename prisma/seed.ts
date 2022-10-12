@@ -5,6 +5,7 @@ const prisma = new PrismaClient();
 
 async function main() {
   const user: Prisma.UserCreateInput = {
+    name: 'Nathan',
     email: 'nathan@admin.com',
     password: 'admin',
     roles: [Role.ADMIN],

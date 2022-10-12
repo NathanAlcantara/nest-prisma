@@ -21,12 +21,13 @@ import { LocalStrategy } from './strategies/local.strategy';
       useFactory: (configService: ConfigService) => ({
         secret: configService.get('JWT_SECRET'),
         signOptions: {
-          expiresIn: configService.get<number>('JWT_EXP', 60),
+          expiresIn: configService.get<number>('JWT_EXP'),
         },
       }),
     }),
     UsersModule,
   ],
+  exports: [AuthService],
   providers: [
     AuthService,
     LocalStrategy,
@@ -40,7 +41,6 @@ import { LocalStrategy } from './strategies/local.strategy';
       useClass: RolesGuard,
     },
   ],
-  exports: [AuthService],
   controllers: [AuthController],
 })
 export class AuthModule {}

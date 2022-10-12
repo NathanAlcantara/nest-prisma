@@ -17,13 +17,15 @@ export class UUIDParam {
   id: string;
 }
 
-export const ListInput = <T>(orderByColumns: [keyof T]) => {
+export const ListInput = <SearchInput, WhereInput>(
+  orderByColumns: Array<keyof SearchInput>,
+) => {
   class ListInput {
     @IsOptional()
     @IsString()
     q?: string;
 
-    where?: T;
+    where?: WhereInput;
 
     @IsOptional()
     @IsNumber()
@@ -42,7 +44,7 @@ export const ListInput = <T>(orderByColumns: [keyof T]) => {
     @IsOptional()
     @IsString()
     @IsIn(orderByColumns)
-    orderBy?: keyof T;
+    orderBy?: keyof SearchInput;
 
     @IsOptional()
     @IsEnum(Prisma.SortOrder)

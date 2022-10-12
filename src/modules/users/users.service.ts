@@ -7,6 +7,7 @@ import { ListUserInput } from './user.dto';
 export class UsersService {
   selectWithoutPassword = {
     id: true,
+    name: true,
     email: true,
     password: false,
     roles: true,
@@ -48,13 +49,15 @@ export class UsersService {
   create(userCreateInput: Prisma.UserCreateInput): Promise<User> {
     return this.prisma.user.create({
       data: userCreateInput,
-      select: this.selectWithoutPassword,
     });
   }
 
-  update(id: string, userUpdateInput: Prisma.UserUpdateInput): Promise<User> {
+  update(
+    userWhereUniqueInput: Prisma.UserWhereUniqueInput,
+    userUpdateInput: Prisma.UserUpdateInput,
+  ): Promise<User> {
     return this.prisma.user.update({
-      where: { id },
+      where: userWhereUniqueInput,
       data: userUpdateInput,
       select: this.selectWithoutPassword,
     });

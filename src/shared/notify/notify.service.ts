@@ -1,14 +1,26 @@
 import { MailerService } from '@nestjs-modules/mailer';
 import { Injectable } from '@nestjs/common';
+import { User } from '@prisma/client';
+import { TokenType } from './token/token.enum';
+import { TokenService } from './token/token.service';
 
 @Injectable()
 export class NotifyService {
-  constructor(private mailerService: MailerService) {}
+  constructor(
+    private mailerService: MailerService,
+    private tokenService: TokenService,
+  ) {}
 
-  welcome(): void {
+  async welcome(user: User): Promise<void> {
+    const token = await this.tokenService.create(
+      TokenType.WELCOME,
+      user.email,
+      true,
+    );
+
     this.mailerService
       .sendMail({
-        to: 'test@nestjs.com',
+        to: user.email,
         subject: 'Welcome!!',
         template: 'welcome',
         attachments: [
@@ -24,10 +36,8 @@ export class NotifyService {
           },
         ],
         context: {
-          username: 'john doe',
-          email: 'test@nestjs.com',
-          password: '1234',
-          loginUrl: 'https//localhost/login',
+          username: user.name,
+          createPasswordUrl: `https//localhost/welcome/${token}`,
           unsubscribeUrl: 'https//localhost/unsubscribe',
         },
       })
@@ -39,10 +49,16 @@ export class NotifyService {
       });
   }
 
-  resetPassword(): void {
+  async resetPassword(email: string): Promise<void> {
+    const token = await this.tokenService.create(
+      TokenType.RESET_PASSWORD,
+      email,
+      true,
+    );
+
     this.mailerService
       .sendMail({
-        to: 'test@nestjs.com',
+        to: email,
         subject: 'Reset Password',
         template: 'reset-password',
         attachments: [
@@ -53,7 +69,7 @@ export class NotifyService {
           },
         ],
         context: {
-          resetPasswordUrl: 'https//localhost/resetPassword',
+          resetPasswordUrl: `https//localhost/resetPassword/${token}`,
           unsubscribeUrl: 'https//localhost/unsubscribe',
         },
       })

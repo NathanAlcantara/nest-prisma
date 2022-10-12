@@ -2,8 +2,8 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { NotifyController } from './notify.controller';
 import { NotifyService } from './notify.service';
+import { TokenModule } from './token/token.module';
 
 @Module({
   imports: [
@@ -39,8 +39,9 @@ import { NotifyService } from './notify.service';
         },
       }),
     }),
+    TokenModule,
   ],
-  controllers: [NotifyController],
+  exports: [NotifyService, TokenModule],
   providers: [NotifyService],
 })
 export class NotifyModule {}

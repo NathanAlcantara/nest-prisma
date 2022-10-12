@@ -6,7 +6,7 @@ import { PrismaHealthIndicator } from './prisma-health.service';
 
 @Module({
   imports: [TerminusModule, HttpModule],
-  controllers: [HealthController],
   providers: [PrismaHealthIndicator],
+  controllers: [HealthController],
 })
 export class HealthModule {}

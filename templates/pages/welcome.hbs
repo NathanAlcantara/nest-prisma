@@ -39,11 +39,14 @@
             <td bgcolor="#ffffff" align="left" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
               <h1 style="margin: 0 0 12px; font-size: 32px; font-weight: 400; line-height: 48px;">Welcome, {{ username }}!</h1>
               <p style="margin: 0;">Thank you for signing up with Paste. We strive to produce high quality email templates that you can use for your transactional or marketing needs.</p>
-              <br/>
-              <p style="margin: 0;">Here your generated credentials to your first login:</p>
-              <br/>
-              <p style="margin: 0;">Email: {{ email }}</p>
-              <p style="margin: 0;">Password: {{ password }}</p>
+            </td>
+          </tr>
+          <!-- end copy -->
+
+          <!-- start copy -->
+          <tr>
+            <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
+              <p style="margin: 0;">Tap the button below to begin your journey. If you didn't request a new password, you can safely delete this email.</p>
             </td>
           </tr>
           <!-- end copy -->
@@ -57,7 +60,7 @@
                     <table border="0" cellpadding="0" cellspacing="0">
                       <tr>
                         <td align="center" bgcolor="#1a82e2" style="border-radius: 6px;">
-                          <a href="{{ loginUrl }}" target="_blank" rel="noopener noreferrer" style="display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;">Login</a>
+                          <a href="{{ createPasswordUrl }}" target="_blank" style="display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;">Start Here</a>
                         </td>
                       </tr>
                     </table>
@@ -67,5 +70,14 @@
             </td>
           </tr>
           <!-- end button -->
+
+          <!-- start copy -->
+          <tr>
+            <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
+              <p style="margin: 0;">If that doesn't work, copy and paste the following link in your browser:</p>
+              <p style="margin: 0;"><a href="{{ createPasswordUrl }}" target="_blank">{{ createPasswordUrl }}</a></p>
+            </td>
+          </tr>
+          <!-- end copy -->
 
 {{> footer }}
