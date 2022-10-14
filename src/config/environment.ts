@@ -16,6 +16,8 @@ interface EnvironmentVariables {
   SMTP_HOST: string;
   SMTP_USER: string;
   SMTP_PASS: string;
+  AUTH0_ISSUER_URL: string;
+  AUTH0_AUDIENCE: string;
 }
 
 export const validationSchema = Joi.object<EnvironmentVariables>({
@@ -37,4 +39,6 @@ export const validationSchema = Joi.object<EnvironmentVariables>({
     .when('NODE_ENV', { is: Environment.PRODUCTION, then: Joi.required() }),
   SMTP_USER: Joi.string().required(),
   SMTP_PASS: Joi.string().required(),
+  AUTH0_ISSUER_URL: Joi.string().required(),
+  AUTH0_AUDIENCE: Joi.string().required(),
 });
